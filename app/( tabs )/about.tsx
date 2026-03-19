@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function AboutScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Odeio o Bruno</Text>
+      <Text style={styles.title}>Bruno não é legal</Text>
       <Text style={styles.description}>
         This is the about page. You successfully navigated here!
       </Text>
