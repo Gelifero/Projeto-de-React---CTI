@@ -5,9 +5,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Edit app/index.tsx to edit this screen.</Text>
-      <Link href="/about" style={styles.button}>
         Eu não gosto do Bruno
-      </Link>
     </View>
   );
 }
@@ -21,10 +19,5 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
   },
 });

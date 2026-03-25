@@ -8,10 +8,6 @@ export default function AboutScreen() {
       <Text style={styles.description}>
         This is the about page. You successfully navigated here!
       </Text>
-
-      <Link href="/" style={styles.link}>
-        Back Home
-      </Link>
     </View>
   );
 }
@@ -34,10 +30,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     color: '#333',
-  },
-  link: {
-    fontSize: 16,
-    color: 'blue',
-    marginTop: 15,
   },
 });
