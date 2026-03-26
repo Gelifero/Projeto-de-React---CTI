@@ -1,4 +1,3 @@
-import { Link } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function AboutScreen() {
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffffff',
   },
   title: {
     fontSize: 24,
@@ -29,6 +28,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
-    color: '#333',
+    color: '#ffffffff',
   },
 });
