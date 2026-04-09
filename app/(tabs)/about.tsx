@@ -1,33 +1,87 @@
-import { StyleSheet, Text, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function AboutScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bruno não é legal</Text>
-      <Text style={styles.description}>
-        This is the about page. You successfully navigated here!
-      </Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Ionicons name="information-circle" size={60} color="#E50914" />
+        <Text style={styles.title}>Sobre o App</Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.infoTitle}>O que é?</Text>
+        <Text style={styles.infoText}>
+          Este é um clone do Netflix feito com React Native e Expo. Um app completo para gerenciar sua lista de filmes e séries!
+        </Text>
+      </View>
+
+      <View style={styles.infoCard}>
+        <Text style={styles.infoTitle}>Tecnologias</Text>
+        <Text style={styles.infoText}>
+          React Native • Expo • TypeScript • React Navigation
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#000000',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  header: {
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#ffffffff',
+    marginBottom: 30,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#FFFFFF',
+    marginTop: 12,
   },
-  description: {
-    fontSize: 16,
-    textAlign: 'center',
+  infoCard: {
+    backgroundColor: '#222222',
+    borderLeftWidth: 4,
+    borderLeftColor: '#E50914',
+    padding: 15,
+    borderRadius: 8,
     marginBottom: 20,
-    color: '#ffffffff',
+  },
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E50914',
+    marginBottom: 8,
+  },
+  infoText: {
+    fontSize: 14,
+    color: '#CCCCCC',
+    lineHeight: 20,
+  },
+  featureCard: {
+    backgroundColor: '#222222',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  featureTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#E50914',
+    marginBottom: 15,
+  },
+  feature: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  featureText: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    marginLeft: 12,
   },
 });

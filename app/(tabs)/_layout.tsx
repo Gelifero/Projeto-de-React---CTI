@@ -1,6 +1,5 @@
+import { Fontisto, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Fontisto from '@expo/vector-icons/Fontisto';
 
 export default function TabLayout() {
     return(
@@ -29,6 +28,26 @@ export default function TabLayout() {
           ),
         }}
         />
-      </Tabs>  
+        <Tabs.Screen name="search" options={{title: 'Buscar',
+          tabBarIcon: ({color, focused}) => (<Ionicons name="search" color="red" size={24}/>
+          ),
+        }}
+        />
+        <Tabs.Screen name="favoritos" options={{title: 'Favoritos',
+          tabBarIcon: ({color, focused}) => (<Ionicons name="heart" color="red" size={24}/>
+          ),
+        }}
+        />
+        <Tabs.Screen name="catalogo" options={{title: 'Catálogo',
+          tabBarIcon: ({color, focused}) => (<Ionicons name="grid" color="red" size={24}/>
+          ),
+        }}
+        />
+        <Tabs.Screen name="toDoList" options={{title: 'Lista do que eu quero assistir',
+          tabBarIcon: ({color, focused}) => (<Ionicons name="play" color="red" size={24}/>
+          ),
+        }}
+        />
+      </Tabs>
     );
 }
