@@ -1,34 +1,85 @@
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Fontisto from '@expo/vector-icons/Fontisto';
 
 export default function TabLayout() {
-    return(
-      <Tabs screenOptions={{
-        tabBarActiveTintColor: '#ff0000',
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: '#FFB703',
+        tabBarInactiveTintColor: '#023E8A',
+
         headerStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#6effcf',
         },
         headerShadowVisible: false,
-        headerTintColor: '#fff',
+        headerTintColor: '#D62828',
+
         tabBarStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#6effcf',
+          borderTopWidth: 0,
         },
-        }}
-        >
-
-        <Tabs.Screen name="index"
-         options={{title: 'Home',
-          tabBarIcon: ({color, focused}) => (
-            <Fontisto name="netflix" size={24} color="red" />
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Início',
+          headerTitle: '🦀 Restaurante Siri Cascudo 🦀',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'home' : 'home-outline'}
+              size={24}
+              color={color}
+            />
           ),
-          }}/>
+        }}
+      />
 
-        <Tabs.Screen name="about" options={{title: 'About',
-          tabBarIcon: ({color, focused}) => (<Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
+      <Tabs.Screen
+        name="about"
+        options={{
+          title: 'Sobre',
+          headerTitle: '🌊 Sobre o Restaurante 🌊',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'information-circle' : 'information-circle-outline'}
+              size={24}
+              color={color}
+            />
           ),
         }}
-        />
-      </Tabs>  
-    );
+      />
+
+      <Tabs.Screen
+        name="toDoList"
+        options={{
+          title: 'Cardápio',
+          headerTitle: '🍔 Cardápio do Cascudo 🍔',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'list' : 'list-outline'}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      
+      <Tabs.Screen
+        name="pedido"
+        options={{
+          title: 'Pedidos',
+          headerTitle: ' Pedidos da Fenda do Biquíni ',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'restaurant' : 'restaurant-outline'}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }
