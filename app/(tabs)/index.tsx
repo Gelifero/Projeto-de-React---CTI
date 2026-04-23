@@ -1,5 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Text, View } from 'react-native';
+import Image from 'expo-image';
+
+const PlaceholderImage = require('../assets/placeholder.png');
 
 export default function Index() {
   return (
