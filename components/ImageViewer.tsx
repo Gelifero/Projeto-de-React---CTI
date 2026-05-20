@@ -3,10 +3,11 @@ import { Image, type ImageSource } from 'expo-image';
 
 type Props = {
   imgSource: ImageSource;
+  style?: any;
 };
 
-export default function ImageViewer({ imgSource }: Props) {
-  return <Image source={imgSource} style={styles.image} />;
+export default function ImageViewer({ imgSource, style }: Props) {
+  return <Image source={imgSource} style={[styles.image, style]} />;
 }
 
 const styles = StyleSheet.create({
@@ -14,5 +15,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 440,
     borderRadius: 18,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
 });
