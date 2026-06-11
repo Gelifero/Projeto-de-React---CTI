@@ -1,15 +1,15 @@
-import { useState, useRef } from 'react'; // Adicionado useRef
-import { View, StyleSheet, Platform } from 'react-native'; // Adicionado Platform
+import { useState, useRef } from 'react';
+import { View, StyleSheet, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { type ImageSource } from 'expo-image';
 
-// Novas bibliotecas para salvar a imagem e ler gestos
+// Bibliotecas para salvar a imagem e ler gestos
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
 import domtoimage from 'dom-to-image';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-// Importe seus componentes personalizados (Mantive com a inicial Maiúscula pra não dar erro!)
+// CORRIGIDO: Letras maiúsculas para bater exatamente com o nome dos arquivos
 import ImageViewer from '../componentes/imageViewer'; 
 import Button from '../componentes/button'; 
 import IconButton from '../componentes/IconButton';
@@ -21,8 +21,8 @@ import EmojiSticker from '../componentes/EmojiSticker';
 const PlaceholderImage = require('../../assets/images/bob4.webp');
 
 export default function ImagePickerScreen() {
-  const imageRef = useRef(null); // Referência para a "câmera" tirar print
-  const [status, requestPermission] = MediaLibrary.usePermissions(); // Estado da permissão
+  const imageRef = useRef(null); 
+  const [status, requestPermission] = MediaLibrary.usePermissions(); 
 
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
@@ -36,7 +36,6 @@ export default function ImagePickerScreen() {
       quality: 1,
     });
 
-    // Pede permissão para acessar a galeria se o usuário ainda não deu
     if (status === null) {
       requestPermission();
     }
@@ -51,7 +50,7 @@ export default function ImagePickerScreen() {
 
   const onReset = () => {
     setShowAppOptions(false); 
-    setPickedEmoji(undefined); // Limpa o adesivo quando reseta
+    setPickedEmoji(undefined); 
   };
 
   const onAddSticker = () => {
@@ -62,21 +61,30 @@ export default function ImagePickerScreen() {
     setIsModalVisible(false); 
   };
 
-  // Função mágica de salvar a foto criada pela professora
+  // CORRIGIDO: Agora verifica e pede permissão ativamente antes de salvar
   const onSaveImageAsync = async () => {
     if (Platform.OS !== 'web') {
       try {
+        if (status?.status !== 'granted') {
+          const permission = await requestPermission();
+          if (!permission.granted) {
+            alert("Preciso de permissão para salvar a foto! 😅");
+            return;
+          }
+        }
+
         const localUri = await captureRef(imageRef, {
           height: 440,
           quality: 1,
         });
 
-        await MediaLibrary.saveToLibraryAsync(localUri);
         if (localUri) {
+          await MediaLibrary.saveToLibraryAsync(localUri);
           alert('Foto salva com sucesso na galeria! 🎉');
         }
       } catch (e) {
         console.log(e);
+        alert("Ops! Ocorreu um erro ao tentar salvar a imagem.");
       }
     } else {
       try {
@@ -99,10 +107,8 @@ export default function ImagePickerScreen() {
   };
 
   return (
-    // Trocamos a View principal pelo GestureHandlerRootView
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
-        {/* Tudo dentro dessa View com 'ref' será salvo na imagem final */}
         <View ref={imageRef} collapsable={false}>
           <ImageViewer 
             imgSource={PlaceholderImage} 
