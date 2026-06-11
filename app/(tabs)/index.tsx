@@ -1,8 +1,10 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Text, View, Dimensions, Alert, ImageSourcePropType } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Alert, ImageSourcePropType, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
+import * as MediaLibrary from 'expo-media-library';
+import { useState, useRef } from 'react';
+import { captureRef } from 'react-native-view-shot';
 
 import Button from '@/components/button';
 import ImageViewer from '@/components/ImageViewer';
@@ -10,12 +12,20 @@ import IconButton from '@/components/iconButton';
 import CircleButton from '@/components/circleButton';
 import EmojiPicker from '@/components/emojiPicker';
 import EmojiList from '@/components/emojiList';
-// NOVO IMPORT: Componente do sticker
 import EmojiSticker from '@/components/emojiSticker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const PlaceholderImage = require('@/assets/images/netflixLogo.png');
 
 export default function Index() {
+  const imageRef = useRef<any>(null);
+  
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  if (status === null) {
+    requestPermission();
+  }
+
   const { width } = Dimensions.get('window');
   const logoWidth = Math.min(width * 0.7, 320);
   const buttonWidth = Math.min(width * 0.85, 340);
@@ -62,18 +72,35 @@ export default function Index() {
     setIsModalVisible(false);
   };
 
+  // NOVA FUNÇÃO: Captura a view e salva na galeria
   const onSaveImageAsync = async () => {
-    // implementaremos isso mais tarde
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert('Salvo com sucesso!');
+      }
+    } catch (e) {
+      console.log(e);
+      alert('Erro ao salvar a imagem.');
+    }
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+    <GestureHandlerRootView style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container} style={styles.scrollView} showsVerticalScrollIndicator={true}>
         <View style={[styles.logoContainer, { width: logoWidth, height: logoWidth * 1.3, borderRadius: logoWidth * 0.18 }] }>
-          <ImageViewer imgSource={selectedImage ? { uri: selectedImage } : PlaceholderImage} style={{ width: logoWidth, height: logoWidth * 1.3, borderRadius: logoWidth * 0.18 }} />
           
-          {/* NOVO CÓDIGO: Renderiza o sticker se um emoji tiver sido escolhido */}
-          {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+          <View ref={imageRef} collapsable={false}>
+            <ImageViewer imgSource={selectedImage ? { uri: selectedImage } : PlaceholderImage} style={{ width: logoWidth, height: logoWidth * 1.3, borderRadius: logoWidth * 0.18 }} />
+            {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+          </View>
+
         </View>
         
         <Text style={styles.title}>Bem-vindo!</Text>
@@ -101,8 +128,9 @@ export default function Index() {
         <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
           <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
         </EmojiPicker>
-      </View>
+      </ScrollView>
     </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
@@ -112,12 +140,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 16,
+    paddingBottom: 140,
     width: '100%',
+    flexDirection: 'column',
+  },
+  scrollView: {
+    flex: 1,
   },
   logoContainer: {
     marginBottom: 24,

@@ -33,6 +33,11 @@ export default function TabLayout() {
           ),
         }}
         />
+        <Tabs.Screen name="movies" options={{title: 'Filmes',
+          tabBarIcon: ({color, focused}) => (<Ionicons name="film" color="red" size={24}/>
+          ),
+        }}
+        />
         <Tabs.Screen name="favoritos" options={{title: 'Favoritos',
           tabBarIcon: ({color, focused}) => (<Ionicons name="heart" color="red" size={24}/>
           ),
