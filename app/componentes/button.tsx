@@ -4,9 +4,12 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 type Props = {
   label: string;
   theme?: 'primary';
-};
+  // ADIÇÃO: Permite que o botão receba uma função de clique do componente pai
+  onPress?: () => void; 
+}; 
 
-export default function Button({ label, theme }: Props) {
+// ADIÇÃO: Recebendo o onPress aqui nos parâmetros
+export default function Button({ label, theme, onPress }: Props) {
     if (theme === 'primary') {
         return (
             <View 
@@ -16,8 +19,8 @@ export default function Button({ label, theme }: Props) {
                 ]}>
                 <Pressable 
                     style={[styles.button, { backgroundColor: '#FFB703' }]}
-                    // CORREÇÃO: Faltava o sinal de igual '=' depois do onPress
-                    onPress={() => alert('Botão Primário Pressionado!')}
+                    // CORREÇÃO: Usando a função dinâmica em vez do alert fixo
+                    onPress={onPress}
                 >
                     <FontAwesome name="picture-o" size={18} color="#023E8A" style={styles.buttonIcon} />
                     <Text style={[styles.buttonLabel, { color: '#023E8A' }]}>{label}</Text>
@@ -27,9 +30,9 @@ export default function Button({ label, theme }: Props) {
     }
 
     return (
-        // CORREÇÃO: A tag <View> tem que começar com 'V' maiúsculo
         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} onPress={() => alert('Botão Pressionado!')}>
+            {/* CORREÇÃO: Usando a função dinâmica em vez do alert fixo */}
+            <Pressable style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonLabel}>{label}</Text>
             </Pressable>
         </View>
@@ -38,10 +41,10 @@ export default function Button({ label, theme }: Props) {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        width: 320, // CORREÇÃO: Faltava os dois pontos ':' depois do width
+        width: 320, 
         height: 50,
         marginHorizontal: 20,
-        alignItems: 'center', // CORREÇÃO: Estava escrito 'alighnItems'
+        alignItems: 'center', 
         justifyContent: 'center',
         padding: 2
     },
