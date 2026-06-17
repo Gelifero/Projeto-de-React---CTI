@@ -11,6 +11,9 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
   const [emoji] = useState<ImageSource[]>([
     require("../../assets/images/esponja2.png"),
     require("../../assets/images/image.png"),
+    require("../../assets/images/lula molusco.png"),
+    require("../../assets/images/sirigueijo1.png"),
+    require("../../assets/images/teste678.png"),
   ]);
 
   return (

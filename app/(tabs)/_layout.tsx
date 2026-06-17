@@ -80,6 +80,37 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="episodios"
+        options={{
+          title: 'TV',
+          headerTitle: '📺 Assista no Siri Cascudo',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'tv' : 'tv-outline'}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+
+      <Tabs.Screen
+        name="imagePicker"
+        options={{
+          title: 'Foto',
+          headerTitle: '📸 Câmera do Cascudo',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? 'camera' : 'camera-outline'}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
